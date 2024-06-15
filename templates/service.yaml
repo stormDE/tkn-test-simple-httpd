@@ -1,0 +1,18 @@
+{{- if .Values.deployment.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tekton-test.fullname" . }}
+  labels:
+    {{- include "tekton-test.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: {{ .Values.service.port }}
+  selector:
+    {{- include "tekton-test.selectorLabels" . | nindent 4 }}
+{{- end }}
