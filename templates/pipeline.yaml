@@ -1,0 +1,27 @@
+{{- if .Values.pipeline.enabled -}}
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: helloworld
+spec:
+  params:
+  - name: appendix
+    type: string
+    default: {{ .Values.pipeline.helloWorld.appendix }}
+  tasks:
+    - name: hello
+      taskRef:
+        name: hello-world
+      params:
+      - name: appendix
+        value: $(params.appendix)
+        description: "this transports a name to the hello world message"
+  tasks:
+    - name: hello
+      taskRef:
+        name: recreate-homepage
+      params:
+      - name: appendix
+        value: $(params.appendix)
+{{- end }}

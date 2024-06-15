@@ -1,0 +1,13 @@
+{{- if .Values.deployment.enabled -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+  labels:
+    {{- include "tekton-test.labels" . | nindent 4 }}
+data:
+  index.html: <p>Hello World!</p>
+binaryData: {}
+immutable: false
+{{- end }}

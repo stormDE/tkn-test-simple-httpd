@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: hello-world
+spec:
+  params:
+  - name: appendix
+    type: string
+  steps:
+    - name: hello
+      image: registry.access.redhat.com/ubi9:latest
+      script: |
+        #!/bin/bash
+
+        echo "Hello World! $(params.appendix)!"
