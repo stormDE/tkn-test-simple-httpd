@@ -9,18 +9,18 @@ spec:
   - name: appendix
     type: string
     default: {{ .Values.pipeline.helloWorld.appendix }}
+    description: "this stores a name to the httpd webserver app"
   tasks:
-    - name: hello
+    - name: write-name
       taskRef:
-        name: hello-world
+        name: write-name
       params:
       - name: appendix
         value: $(params.appendix)
-        description: "this transports a name to the hello world message"
   tasks:
-    - name: hello
+    - name: recreate-homepage
       taskRef:
-        name: recreate-homepage
+        name: create-configmap
       params:
       - name: appendix
         value: $(params.appendix)
